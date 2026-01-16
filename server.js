@@ -171,8 +171,10 @@ app.post('/api/analyze', async (req, res) => {
 
     consistencyScore = Math.max(0, Math.min(100, consistencyScore)); // Clamp 0-100
 
+    // 4. Save to Notion (Fail-Safe)
+    let savedData = null;
     try {
-        const response = await notion.pages.create({
+        savedData = await notion.pages.create({
             parent: { database_id: DB.SWING_ANALYSIS },
             properties: {
                 "User": { relation: [{ id: userId }] },
@@ -186,20 +188,21 @@ app.post('/api/analyze', async (req, res) => {
                 "AI Comment": { rich_text: [{ text: { content: aiComment } }] }
             }
         });
-
-        // Return calculated data so frontend doesn't need to re-fetch
-        res.json({
-            message: 'Analysis saved successfully',
-            data: response,
-            aiResult: {
-                score: consistencyScore,
-                comment: aiComment
-            }
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Failed to save analysis to Notion' });
+        console.log("Analysis saved to Notion");
+    } catch (dbError) {
+        console.error("Notion Save Failed (Ignored):", dbError.message);
+        // We continue without throwing, so the user still gets the result
     }
+
+    // Return result regardless of DB success
+    res.json({
+        message: 'Analysis complete',
+        data: savedData, // Might be null, frontend should handle
+        aiResult: {
+            score: consistencyScore,
+            comment: aiComment
+        }
+    });
 });
 
 // 5. AI Coach Chat API (Mock AI)
@@ -222,10 +225,11 @@ app.post('/api/chat', async (req, res) => {
         reply = "안녕하세요! 당신의 AI 골프 코치입니다. 오늘 컨디션은 어떠신가요?";
     }
 
-    // Simulate Network Delay (AI Thinking)
+    // Simulate Network Delay (AI Thinking) - Reduced to 500ms
     setTimeout(() => {
+        if (!reply) reply = "시스템 오류가 발생했습니다.";
         res.json({ reply: reply });
-    }, 1000); // 1.0s delay
+    }, 500);
 });
 
 // Debug: List all databases & Check Users DB Schema

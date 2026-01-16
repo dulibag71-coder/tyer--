@@ -320,14 +320,89 @@ input[type=range] {
     display: none !important;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column-reverse;
+        /* Bottom Nav style */
+        height: 100vh;
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem 1.5rem;
+        border-right: none;
+        border-top: 1px solid var(--border-soft);
+        background: rgba(17, 24, 39, 0.95);
+        backdrop-filter: blur(10px);
+        position: fixed;
+        bottom: 0;
+        z-index: 50;
+    }
+
+    .brand,
+    .user-profile {
+        display: none;
+        /* Hide brand & profile to save space */
+    }
+
+    .nav-menu {
+        flex-direction: row;
+        gap: 0.5rem;
+        margin-top: 0;
+        width: 100%;
+        justify-content: space-around;
+        padding: 0;
+    }
+
+    .nav-item {
+        margin: 0;
+        padding: 0.5rem;
+        font-size: 0.9rem;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .main-content {
+        height: calc(100vh - 70px);
+        /* Leave space for bottom nav */
+        padding: 1.5rem;
+        overflow-y: auto;
+    }
+
+    .dashboard-view {
+        grid-template-columns: 1fr;
+        /* Stack columns */
+        gap: 1.5rem;
+    }
+
+    /* Adjust Card Paddings for Mobile */
+    .card {
+        padding: 1.5rem;
+    }
+
+    /* Zero State Fonts */
+    .zero-title {
+        font-size: 2rem;
+    }
+
+    .zero-desc {
+        font-size: 1rem;
+    }
+
+    /* Login Card */
+    .login-card {
+        padding: 2rem;
+        width: 90%;
     }
 }
