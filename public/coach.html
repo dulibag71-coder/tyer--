@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf AI | AI 코치</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="brand">GOLF AI<div class="brand-dot"></div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item" onclick="location.href='dashboard.html'">홈 (대시보드)</li>
+                <li class="nav-item" onclick="location.href='studio.html'">스윙 스튜디오</li>
+                <li class="nav-item active" onclick="location.href='coach.html'">AI 코치</li>
+            </ul>
+            <div class="user-profile">
+                <div class="avatar" id="avatar">?</div>
+                <div>
+                    <div style="font-weight:700" id="user-name">게스트</div>
+                    <div style="font-size:0.8rem; color:var(--text-secondary)" id="user-level">레벨 -</div>
+                    <div style="font-size:0.7rem; color:var(--danger); cursor:pointer; margin-top:4px;"
+                        onclick="logout()">로그아웃</div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="dashboard-view active"
+                style="display:grid; grid-template-columns: 1fr; grid-template-rows: 1fr; height: 100%;">
+                <div class="card" style="height: 100%; display: flex; flex-direction: column;">
+                    <div class="card-header">
+                        <div class="card-title">AI 코치 피드백 로그</div>
+                    </div>
+                    <div id="chat-log"
+                        style="flex: 1; overflow-y: auto; padding-right: 1rem; margin-bottom: 1rem; border: 1px solid var(--border-soft); border-radius: 12px; padding: 1rem;">
+                        <div style="color: var(--text-secondary); text-align: center; margin-top: 2rem;">
+                            아직 기록된 피드백이 없습니다.<br>스튜디오에서 스윙을 분석해보세요.
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="text" class="input-pure" placeholder="AI 코치에게 질문하기..." style="margin-bottom:0">
+                        <button class="btn-primary" style="width: auto;">전송</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

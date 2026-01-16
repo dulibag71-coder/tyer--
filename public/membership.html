@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf AI | 멤버십</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .plan-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-soft);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .plan-card.popular {
+            border: 1px solid var(--primary);
+            background: linear-gradient(145deg, rgba(56, 189, 248, 0.1), rgba(0, 0, 0, 0));
+        }
+
+        .badge-popular {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: #0f172a;
+            font-weight: 800;
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .price-tag {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 1rem 0;
+            color: var(--text-primary);
+        }
+
+        .price-tag span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        .features {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+            flex: 1;
+        }
+
+        .features li {
+            margin-bottom: 0.8rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .features li.on {
+            color: var(--text-primary);
+        }
+
+        .features li::before {
+            content: '•';
+            color: var(--text-muted);
+        }
+
+        .features li.on::before {
+            content: '✔';
+            color: var(--success);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">GOLF AI<div class="brand-dot"></div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item" onclick="location.href='dashboard.html'">홈 (대시보드)</li>
+                <li class="nav-item" onclick="location.href='studio.html'">스윙 스튜디오</li>
+                <li class="nav-item" onclick="location.href='coach.html'">AI 코치</li>
+                <li class="nav-item active" onclick="location.href='membership.html'">멤버십</li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-view active">
+                <div class="header-section" style="text-align:center; margin-bottom: 3rem;">
+                    <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">당신의 골프 잠재력을 깨우세요</h1>
+                    <p style="color: var(--text-secondary);">더 빠르고 정교한 성장을 위한 프리미엄 플랜</p>
+                </div>
+
+                <div class="pricing-grid">
+                    <!-- FREE -->
+                    <div class="plan-card">
+                        <h3 style="color:var(--text-secondary)">Starter</h3>
+                        <div class="price-tag">₩0<span>/월</span></div>
+                        <ul class="features">
+                            <li class="on">월 3회 스윙 분석</li>
+                            <li class="on">기본 AI 코치 (키워드 답변)</li>
+                            <li>정밀 데이터 (밸런스/궤적) 히든</li>
+                            <li>지난 기록 저장 불가</li>
+                        </ul>
+                        <button class="btn-primary"
+                            style="background:var(--card-bg); border:1px solid var(--border-soft); color:var(--text-muted)">현재
+                            이용 중</button>
+                    </div>
+
+                    <!-- PRO -->
+                    <div class="plan-card popular">
+                        <div class="badge-popular">MOST POPULAR</div>
+                        <h3 style="color:var(--primary)">Pro Player</h3>
+                        <div class="price-tag">₩9,900<span>/월</span></div>
+                        <ul class="features">
+                            <li class="on">무제한 스윙 분석 & 저장</li>
+                            <li class="on">AI 코치 심층 대화 모드</li>
+                            <li class="on">프로 스윙 비교 분석 (Overlay)</li>
+                            <li class="on">월간 성장 리포트 발송</li>
+                        </ul>
+                        <button class="btn-primary" onclick="requestUpgrade('pro')">Pro 시작하기</button>
+                    </div>
+
+                    <!-- ELITE -->
+                    <div class="plan-card">
+                        <h3 style="color:var(--accent)">Elite</h3>
+                        <div class="price-tag">₩29,900<span>/월</span></div>
+                        <ul class="features">
+                            <li class="on">Pro의 모든 기능 포함</li>
+                            <li class="on">실제 투어 프로의 월 1회 피드백</li>
+                            <li class="on">개인 맞춤 훈련 드릴 영상 추천</li>
+                            <li class="on">장비 구매 컨설팅 (AI 분석 기반)</li>
+                        </ul>
+                        <button class="btn-primary" style="background:linear-gradient(90deg, var(--accent), #f472b6)"
+                            onclick="requestUpgrade('elite')">Elite 상담하기</button>
+                    </div>
+                </div>
+
+                <div
+                    style="margin-top:3rem; text-align:center; padding:1.5rem; background:rgba(255,255,255,0.03); border-radius:12px;">
+                    <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.6;">
+                        * 학생/미성년자 회원은 <strong>부모님 동의</strong>가 필요합니다.<br>
+                        * 현재 베타 기간으로 결제 기능은 <strong>'관리자 문의(카카오톡/이메일)'</strong>로 연결됩니다.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+    <script>
+        function requestUpgrade(plan) {
+            const user = JSON.parse(localStorage.getItem('golfUser'));
+            if (!user) {
+                alert("로그인이 필요합니다.");
+                location.href = 'index.html';
+                return;
+            }
+
+            if (confirm(`'${plan.toUpperCase()}' 플랜으로 업그레이드 하시겠습니까?\n\n(현재는 베타 테스트 기간으로, 개발자에게 알림을 보내 무료 체험을 신청합니다.)`)) {
+                // Here we would normally redirect to PG or send API request
+                alert("신청이 완료되었습니다! \n개발자가 확인 후 '24시간' 내에 등급을 올려드립니다.");
+
+                // Simulate sending request logic if backend existed
+                console.log(`User ${user.name} requested ${plan}`);
+            }
+        }
+    </script>
+</body>
+
+</html>

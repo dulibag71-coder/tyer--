@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf AI | 시스템 관리자</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .admin-table th {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .admin-table td {
+            color: var(--text-primary);
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge.lv-1 {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .badge.lv-pro {
+            background: rgba(56, 189, 248, 0.2);
+            color: #38bdf8;
+        }
+
+        .badge.lv-elite {
+            background: rgba(244, 114, 182, 0.2);
+            color: #f472b6;
+        }
+
+        .action-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-soft);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand" style="color:#f472b6">ADMIN<div class="brand-dot" style="background:#f472b6"></div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active">사용자 관리</li>
+                <li class="nav-item" onclick="location.href='dashboard.html'">돌아가기</li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-view active">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">등록된 회원 목록 (<span id="user-count">0</span>명)</div>
+                        <button class="action-btn" onclick="fetchUsersForAdmin()">새로고침</button>
+                    </div>
+
+                    <div style="overflow-x: auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>이름 (ID)</th>
+                                    <th>현재 등급</th>
+                                    <th>성장 지수</th>
+                                    <th>상태</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-user-list">
+                                <tr>
+                                    <td colspan="5" style="text-align:center">데이터 로딩 중...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+    <script>
+        // Auto-load if accessed directly
+        document.addEventListener('DOMContentLoaded', () => {
+            initAdmin();
+        });
+    </script>
+</body>
+
+</html>

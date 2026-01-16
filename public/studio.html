@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf AI | 스윙 스튜디오</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="brand">GOLF AI<div class="brand-dot"></div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item" onclick="location.href='dashboard.html'">홈 (대시보드)</li>
+                <li class="nav-item active" onclick="location.href='studio.html'">스윙 스튜디오</li>
+                <li class="nav-item" onclick="location.href='coach.html'">AI 코치</li>
+            </ul>
+            <div class="user-profile">
+                <div class="avatar" id="avatar">?</div>
+                <div>
+                    <div style="font-weight:700" id="user-name">게스트</div>
+                    <div style="font-size:0.8rem; color:var(--text-secondary)" id="user-level">레벨 -</div>
+                    <div style="font-size:0.7rem; color:var(--danger); cursor:pointer; margin-top:4px;"
+                        onclick="logout()">로그아웃</div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="zero-state-container" style="justify-content: flex-start; padding-top: 2rem; opacity: 1;">
+                <div class="card" style="width: 100%; max-width: 800px; text-align: center;">
+                    <div class="card-header" style="justify-content: center;">
+                        <div class="card-title">AI 스윙 영상 분석</div>
+                    </div>
+
+                    <!-- Upload Zone -->
+                    <div id="upload-zone"
+                        style="border: 2px dashed var(--card-border); border-radius: 16px; padding: 3rem; transition: all 0.3s; cursor: pointer; background: rgba(0,0,0,0.2);">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📹</div>
+                        <h3 style="color: #fff; margin-bottom: 0.5rem;">스윙 영상을 이곳에 드래그하세요</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">또는 클릭하여 파일 업로드 (MP4, MOV)</p>
+                        <input type="file" id="video-input" accept="video/*" style="display: none;">
+                    </div>
+
+                    <!-- Progress Zone (Hidden) -->
+                    <div id="progress-zone" class="hidden" style="margin-top: 2rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: #fff;">
+                            <span id="progress-step">영상 업로드 중...</span>
+                            <span id="progress-pct">0%</span>
+                        </div>
+                        <div
+                            style="width: 100%; height: 8px; background: #334155; border-radius: 4px; overflow: hidden;">
+                            <div id="progress-bar"
+                                style="width: 0%; height: 100%; background: var(--primary); transition: width 0.3s;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Zone (Hidden) -->
+                    <div id="result-zone" class="hidden"
+                        style="margin-top: 2rem; text-align: left; background: rgba(15, 23, 42, 0.5); padding: 1.5rem; border-radius: 16px;">
+                        <h4 style="color: var(--primary); margin-bottom: 1rem;">분석 완료! 추출된 데이터:</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div class="stat-item">
+                                <span class="label">어드레스</span>
+                                <span class="val" id="res-address">-</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="label">밸런스</span>
+                                <span class="val" id="res-balance">-</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="label">스윙 궤도</span>
+                                <span class="val" id="res-path">-</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="label">타이밍</span>
+                                <span class="val" id="res-timing">-</span>
+                            </div>
+                        </div>
+                        <div
+                            style="background: rgba(56, 189, 248, 0.1); padding: 1rem; border-radius: 8px; border-left: 3px solid var(--primary);">
+                            <p id="res-ai-comment" style="color: #fff; line-height: 1.6; font-size: 0.95rem;">AI 분석 내용이
+                                여기에 표시됩니다.</p>
+                        </div>
+                        <button class="btn-primary" onclick="location.href='dashboard.html'"
+                            style="margin-top: 1.5rem;">대시보드에 저장하기</button>
+                    </div>
+                </div>
+
+                <style>
+                    .stat-item {
+                        background: rgba(255, 255, 255, 0.05);
+                        padding: 0.8rem;
+                        border-radius: 8px;
+                        display: flex;
+                        justify-content: space-between;
+                    }
+
+                    .stat-item .label {
+                        color: var(--text-muted);
+                        font-size: 0.9rem;
+                    }
+
+                    .stat-item .val {
+                        color: #fff;
+                        font-weight: 600;
+                    }
+
+                    #upload-zone:hover {
+                        background: rgba(56, 189, 248, 0.1);
+                        border-color: var(--primary);
+                    }
+                </style>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
