@@ -72,10 +72,24 @@ app.get('/api/users/:id', async (req, res) => {
     }
 });
 
-// 3.5 Create New User (Auto-Signup)
+// 3.5 Create New User (Auto-Signup) with LIMIT
 app.post('/api/users', async (req, res) => {
     const { name } = req.body;
     try {
+        // [LIMIT CHECK] Check current user count
+        const existingUsers = await notion.databases.query({
+            database_id: DB.USERS,
+            page_size: 100 // Fetch enough to check limit
+        });
+
+        if (existingUsers.results.length >= 20) {
+            return res.status(403).json({
+                error: "LIMIT_REACHED",
+                message: "선착순 20명 모집이 마감되었습니다. 다음 기수를 기다려주세요!"
+            });
+        }
+
+        // Proceed if under limit
         const response = await notion.pages.create({
             parent: { database_id: DB.USERS },
             properties: {

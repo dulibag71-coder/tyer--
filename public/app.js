@@ -97,6 +97,17 @@ function initLogin() {
                         body: JSON.stringify({ name: name })
                     });
 
+                    // [LIMIT CHECK] Handle 403 Forbidden (User Limit)
+                    if (createRes.status === 403) {
+                        const errData = await createRes.json();
+                        alert(`⛔ 가입 제한 알림\n\n${errData.message}`);
+                        // Reset UI
+                        btn.disabled = false;
+                        btn.innerText = "기억 연결하기";
+                        msg.innerText = "";
+                        return;
+                    }
+
                     if (!createRes.ok) throw new Error("프로필 생성 실패 (DB 오류)");
 
                     // Re-fetch to get new ID
