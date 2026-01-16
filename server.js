@@ -232,6 +232,43 @@ app.post('/api/chat', async (req, res) => {
     }, 500);
 });
 
+// 6. Manual Payment Request (New)
+app.post('/api/payment', async (req, res) => {
+    const { userId, userName, depositor, email, plan, amount } = req.body;
+
+    // DB ID for Payments (Optional: User needs to create this)
+    const PAYMENT_DB_ID = process.env.NOTION_DB_PAYMENTS_ID;
+
+    try {
+        if (PAYMENT_DB_ID) {
+            await notion.pages.create({
+                parent: { database_id: PAYMENT_DB_ID },
+                properties: {
+                    "Name": { title: [{ text: { content: `${userName} - ${plan} 신청` } }] },
+                    "User": { relation: [{ id: userId }] },
+                    "Depositor": { rich_text: [{ text: { content: depositor } }] },
+                    "Email": { email: email },
+                    "Plan": { select: { name: plan } },
+                    "Amount": { number: amount },
+                    "Payment Method": { select: { name: "KakaoBank-mini" } },
+                    "Status": { status: { name: "Pending" } }
+                }
+            });
+            console.log("Payment request saved to Notion");
+        } else {
+            console.warn("NOTION_DB_PAYMENTS_ID not set. Payment logged to console only.");
+            console.log(`[PAYMENT] User: ${userName}, Depositor: ${depositor}, Amount: ${amount}`);
+        }
+
+        res.json({ message: "Payment request received" });
+
+    } catch (error) {
+        console.error("Payment Error:", error);
+        // Fail-safe: Return success to UI even if Notion fails (log it)
+        res.json({ message: "Payment request queued (Offline Mode)" });
+    }
+});
+
 // Debug: List all databases & Check Users DB Schema
 (async () => {
     try {

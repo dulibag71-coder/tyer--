@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf AI | PRO 업그레이드</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Payment Specific Styles */
+        .pay-hero {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .pay-hero h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .pay-hero p {
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .pay-tags {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pay-tag {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .plan-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.15);
+            margin: 1rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--primary);
+            color: #fff;
+            padding: 0.3rem 1rem;
+            border-bottom-left-radius: 12px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .feature-list li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #e2e8f0;
+        }
+
+        .bank-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed var(--text-muted);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .bank-info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .bank-info-label {
+            color: var(--text-muted);
+        }
+
+        .bank-info-val {
+            color: #fff;
+            font-weight: 600;
+            text-align: right;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: 1px solid var(--text-muted);
+            color: var(--text-muted);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: #1e293b;
+            padding: 2rem;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid var(--border-soft);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container" style="flex-direction: column; overflow-y: auto;">
+
+        <!-- Navbar -->
+        <div style="padding: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+            <div class="brand" style="font-size: 1.2rem; margin:0;" onclick="location.href='index.html'">
+                GOLF AI<div class="brand-dot"></div>
+            </div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); cursor: pointer;" onclick="history.back()">
+                닫기 ✕
+            </div>
+        </div>
+
+        <main class="main-content" style="padding-top: 0; height: auto;">
+
+            <!-- 1. Hero -->
+            <section class="pay-hero">
+                <h1>PRO 멤버십 신청</h1>
+                <p>계좌이체로 간편하게 결제하고<br>AI 골프 코치의 모든 기능을 해제하세요.</p>
+                <div class="pay-tags">
+                    <div class="pay-tag">✨ 미성년자 OK</div>
+                    <div class="pay-tag">🚫 자동결제 없음</div>
+                    <div class="pay-tag">✅ 언제든 해지 가능</div>
+                </div>
+            </section>
+
+            <!-- 2. Plan Card -->
+            <div class="card plan-card">
+                <div class="plan-badge">BEST CHOICE</div>
+                <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">PRO Plan</h2>
+                <div style="font-size: 2rem; font-weight: 800; color: var(--primary);">
+                    9,900원 <span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">/ 월</span>
+                </div>
+                <ul class="feature-list">
+                    <li>🔓 <b>Level 1 ~ 10</b> 전체 레슨 해금</li>
+                    <li>🤖 <b>AI 코치</b> 무제한 질문 가능</li>
+                    <li>📊 <b>정밀 스윙 리포트</b> (밸런스, 궤도 분석)</li>
+                    <li>📈 <b>성장 데이터</b> 노션 자동 연동</li>
+                </ul>
+            </div>
+
+            <!-- 3. Payment Info -->
+            <div class="bank-box">
+                <h3 style="margin-bottom: 1rem; color: #fff; font-size: 1.1rem;">📢 결제 안내 (계좌이체)</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+                    카카오뱅크 mini 또는 일반 은행 앱을 사용하여<br>아래 계좌로 정확한 금액을 입금해주세요.
+                </p>
+
+                <div class="bank-info-row">
+                    <span class="bank-info-label">은행</span>
+                    <span class="bank-info-val">카카오뱅크 (3333)</span>
+                </div>
+                <div class="bank-info-row">
+                    <span class="bank-info-label">계좌번호</span>
+                    <span class="bank-info-val">
+                        3333-XX-XXXXXX
+                        <button class="copy-btn" onclick="copyAccount()">복사</button>
+                    </span>
+                </div>
+                <div class="bank-info-row">
+                    <span class="bank-info-label">예금주</span>
+                    <span class="bank-info-val">박두리7777034553512</span>
+                </div>
+                <div class="bank-info-row"
+                    style="margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed rgba(255,255,255,0.1);">
+                    <span class="bank-info-label">입금액</span>
+                    <span class="bank-info-val" style="color: var(--primary);">9,900원</span>
+                </div>
+
+                <div
+                    style="margin-top: 1.5rem; background: rgba(248, 113, 113, 0.1); padding: 1rem; border-radius: 8px;">
+                    <strong style="color: #f87171; display: block; margin-bottom: 0.5rem;">⚠️ 주의사항</strong>
+                    <ul style="font-size: 0.85rem; color: #cbd5e1; padding-left: 1.2rem; line-height: 1.6;">
+                        <li>가입하신 <b>사용자 이름</b>과 동일하게 입금해주세요.</li>
+                        <li>입금 후 반드시 아래 <b>[입금 완료]</b> 버튼을 눌러주세요.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 4. Action Button -->
+            <button class="btn-primary" onclick="openModal()" style="font-size: 1.1rem; padding: 1.2rem;">
+                🚀 입금 완료했어요 (신청하기)
+            </button>
+
+            <!-- 5. Footer -->
+            <footer
+                style="margin-top: 3rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; line-height: 1.6;">
+                <p>입금 확인은 최대 24시간 이내 처리됩니다.</p>
+                <p>확인 후 PRO 기능이 자동으로 활성화됩니다.</p>
+                <p style="margin-top: 1rem;">문의: help@golfai.com</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- Payment Confirm Modal -->
+    <div class="modal-overlay" id="payment-modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 0.5rem; color: #fff;">입금 확인 요청</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;">
+                운영자가 빠르게 확인할 수 있도록<br>입금 정보를 정확히 입력해주세요.
+            </p>
+
+            <label style="display: block; color: #cbd5e1; margin-bottom: 0.5rem; font-size: 0.9rem;">실제 입금자명</label>
+            <input type="text" id="depositor-name" class="input-pure" placeholder="예: 홍길동">
+
+            <label style="display: block; color: #cbd5e1; margin-bottom: 0.5rem; font-size: 0.9rem;">이메일 (승인
+                알림용)</label>
+            <input type="email" id="user-email" class="input-pure" placeholder="example@email.com">
+
+            <div style="display: flex; gap: 0.5rem;">
+                <button class="btn-primary" style="background: var(--card-border); color: #cbd5e1;"
+                    onclick="closeModal()">취소</button>
+                <button class="btn-primary" onclick="submitPayment()">신청 완료</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        function copyAccount() {
+            navigator.clipboard.writeText("3333-XX-XXXXXX");
+            alert("계좌번호가 복사되었습니다!");
+        }
+
+        function openModal() {
+            document.getElementById('payment-modal').classList.add('active');
+
+            // Auto-fill if user logged in
+            const storedUser = localStorage.getItem('golfUser');
+            if (storedUser) {
+                const u = JSON.parse(storedUser);
+                if (document.getElementById('depositor-name').value === '') {
+                    document.getElementById('depositor-name').value = u.name;
+                }
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('payment-modal').classList.remove('active');
+        }
+
+        async function submitPayment() {
+            const depositor = document.getElementById('depositor-name').value.trim();
+            const email = document.getElementById('user-email').value.trim();
+            const btn = document.querySelector('#payment-modal .btn-primary:last-child');
+
+            if (!depositor || !email) {
+                alert("입금자명과 이메일을 모두 입력해주세요.");
+                return;
+            }
+
+            const storedUser = localStorage.getItem('golfUser');
+            if (!storedUser) {
+                alert("로그인 정보가 없습니다. 다시 로그인해주세요.");
+                location.href = 'index.html';
+                return;
+            }
+            const user = JSON.parse(storedUser);
+
+            btn.disabled = true;
+            btn.innerText = "전송 중...";
+
+            try {
+                // Call Server API
+                const res = await fetch(`${API_BASE}/payment`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: user.id || user.object,
+                        userName: user.name,
+                        depositor: depositor,
+                        email: email,
+                        plan: 'PRO',
+                        amount: 9900
+                    })
+                });
+
+                if (!res.ok) throw new Error("서버 전송 실패");
+
+                alert("✅ 신청이 완료되었습니다!\n운영자 확인 후(최대 24시간) 승인됩니다.");
+                closeModal();
+                location.href = 'dashboard.html';
+
+            } catch (err) {
+                alert("오류: " + err.message);
+                btn.disabled = false;
+                btn.innerText = "신청 완료";
+            }
+        }
+    </script>
+</body>
+
+</html>
